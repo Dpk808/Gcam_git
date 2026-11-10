@@ -15,11 +15,24 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # Fix: Force Java 17 instead of Java 25
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
           channel: stable
           cache: true
+
+      - name: Check Java Version
+        run: java -version
+
+      - name: Check Flutter
+        run: flutter doctor -v
 
       - name: Install dependencies
         run: flutter pub get
